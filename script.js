@@ -28,7 +28,6 @@ function Library() {
         return this.books.some((book) => book.title === newBook.title)
     }
 }
-let mainLibrary = new Library()
 function Display() {
     this.addBook = function(newBook) {
         let clone = template.cloneNode(true)
@@ -45,6 +44,7 @@ function Display() {
         bookCard.remove()
     }
 }
+let mainLibrary = new Library()
 let mainDisplay = new Display()
 function addBook (title, author, pages, read) {
     let newBook = new Book(title, author, pages, read)

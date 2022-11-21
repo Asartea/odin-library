@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles/material-icons.css">
+    <link rel="stylesheet" href="styles/style.css">
     <script src="script.js" defer></script>
     <title>Libaray</title>
 </head>
 <body>
     <template>
         <div class="book-card">
+            <div class="material-icons remove-button" id="remove-button"><span class="material-icons">cancel</span></div>
             <div class="bookcard-row"></div>
             <div class="bookcard-row"></div>
             <div class="bookcard-row"></div>
-            <div class="read-indicator"></div>
+            <div class="read-indicator">
+                <button type="button" data-read="">Unread</button>
+            </div>
         </div>
     </template>
     <form action="#">
@@ -27,5 +33,6 @@
         <input type="checkbox" name="read" id="read">
         <button type="submit" id="form-submit">Submit</button>
     </form>
+
 </body>
 </html>
