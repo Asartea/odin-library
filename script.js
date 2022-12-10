@@ -1,6 +1,4 @@
-const template = document.querySelector('template')
 const submitButton = document.getElementById('form-submit')
-const container = document.getElementById('container')
 function Book(title, author, pages, read) {
     this.title = title
     this.author = author
@@ -28,20 +26,43 @@ function Library() {
         return this.books.some((book) => book.title === newBook.title)
     }
 }
+function Controller() {
+    this.Library = new Library()
+    this.Display = new Display()
+    this.addBook = function(formData) {
+        let data = this.handleFormData(formData)
+        let newBook = new Book(data.title, data.author, data.pages, data.read)
+        this.Display.addBook(newBook)
+        this.Library.addBook(newBook)
+    }
+    this.removeBook = function(title) {
+        this.Display.removeBook(title)
+        this.Library.removeBook(title)
+    }
+    this.handleFormData = function(data) {
+        data = new FormData(data)
+        return Object.fromEntries(data)
+    }
+}
+let mainController = new Controller()
+
 function Display() {
+    this.template = document.querySelector('template')
+    this.container = document.getElementById('container')
     this.addBook = function(newBook) {
-        let clone = template.content.cloneNode(true)
+        let clone = this.template.content.cloneNode(true)
         let bookCard = clone.querySelectorAll('.book-card')[0]
         bookCard.dataset.title = newBook.title
         let rows = bookCard.querySelectorAll('.bookcard-row')
         rows[0].textContent = newBook.title
         rows[1].textContent = newBook.author
         rows[2].textContent = newBook.pages
-        let removeButton = bookCard.querySelectorAll('#remove-button')
+        let removeButton = bookCard.querySelectorAll('#remove-button')[0]
+        console.log(removeButton)
         removeButton.addEventListener('click', e => {
             console.log(e)
-        })
-        container.appendChild(clone)
+       })
+        this.container.appendChild(clone)
         //TODO: READ / NOT READ DISPLAY    
     }
     this.removeBook = function(title) {
@@ -49,24 +70,8 @@ function Display() {
         bookCard.remove()
     }
 }
-let mainLibrary = new Library()
-let mainDisplay = new Display()
-function addBook (title, author, pages, read) {
-    let newBook = new Book(title, author, pages, read)
-    mainLibrary.addBook(newBook)
-    mainDisplay.addBook(newBook)
-}
-
-function removeBook(title) {
-    mainLibrary.removeBook(title)
-    mainDisplay.removeBook(title)
-}
 submitButton.addEventListener('click', (e) => {
     e.preventDefault()
-    let data = handleFormData(e.target.form)
-    addBook(data.title, data.author, data.pages, data.read)
+    let data = e.target.form
+    mainController.addBook(data)
 })
-function handleFormData(data) {
-    let formdata = new FormData(data)
-    return Object.fromEntries(formdata)
-}
