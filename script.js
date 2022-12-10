@@ -4,10 +4,6 @@ function Book(title, author, pages, read) {
     this.author = author
     this.pages = pages
     this.read = read
-    this.info = function() {
-        let readstring = read ? 'Read' : 'Unread'
-        return `${title} is a book by ${author} and is ${pages} long. I have ${readstring}`
-    }
 }
 function Library() {
     this.books = []
