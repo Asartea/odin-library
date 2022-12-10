@@ -1,6 +1,6 @@
 const template = document.querySelector('template')
 const submitButton = document.getElementById('form-submit')
-
+const container = document.getElementById('container')
 function Book(title, author, pages, read) {
     this.title = title
     this.author = author
@@ -14,7 +14,7 @@ function Book(title, author, pages, read) {
 function Library() {
     this.books = []
     this.addBook = function(newBook) {
-        if(!mainLibrary.alreadyInLibrary(newBook)) {
+        if(!this.alreadyInLibrary(newBook)) {
             this.books.push(newBook)
         }
     }
@@ -30,13 +30,18 @@ function Library() {
 }
 function Display() {
     this.addBook = function(newBook) {
-        let clone = template.cloneNode(true)
-        let bookCard = clone.getElementsByClassName('book-card')[0]
+        let clone = template.content.cloneNode(true)
+        let bookCard = clone.querySelectorAll('.book-card')[0]
         bookCard.dataset.title = newBook.title
-        let rows = bookCard.getElementsByClassName('bookcard-row')
+        let rows = bookCard.querySelectorAll('.bookcard-row')
         rows[0].textContent = newBook.title
         rows[1].textContent = newBook.author
-        rows[3].textContent = newBook.pages
+        rows[2].textContent = newBook.pages
+        let removeButton = bookCard.querySelectorAll('#remove-button')
+        removeButton.addEventListener('click', e => {
+            console.log(e)
+        })
+        container.appendChild(clone)
         //TODO: READ / NOT READ DISPLAY    
     }
     this.removeBook = function(title) {
