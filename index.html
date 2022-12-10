@@ -1,40 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="styles/material-icons.css">
-    <link rel="stylesheet" href="styles/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/material-icons.css" />
+    <link rel="stylesheet" href="dist/output.css" />
     <script src="script.js" defer></script>
-    <title>Libaray</title>
-</head>
-<body>
+    <title>Library</title>
+  </head>
+  <body>
     <template>
-        <div class="book-card">
-            <div class="material-icons remove-button" id="remove-button" role="button"><span class="material-icons">cancel</span></div>
-            <div class="bookcard-row"></div>
-            <div class="bookcard-row"></div>
-            <div class="bookcard-row"></div>
-            <div class="read-indicator">
-                <button type="button" data-read="" id="read-indicator">Unread</button>
-            </div>
+      <div
+        class="book-card my-4 flex flex-col justify-between gap-2 rounded-md bg-gray-700 p-5 text-xl text-white shadow-md shadow-gray-800">
+        <div class="place-self-end" id="remove-button" role="button">
+          <span class="material-icons">cancel</span>
         </div>
+        <div class="bookcard-row"></div>
+        <div class="bookcard-row"></div>
+        <div class="bookcard-row"></div>
+        <div class="read-indicator">
+          <button type="button" data-read="" id="read-indicator">Unread</button>
+        </div>
+      </div>
     </template>
-    <form action="#">
+    <nav></nav>
+    <main>
+      <form action="#">
         <label for="title">Book title</label>
-        <input type="text" name="title" id="title">
+        <input type="text" name="title" id="title" />
         <label for="author">Book Author</label>
-        <input type="text" name="author" id="author">
+        <input type="text" name="author" id="author" />
         <label for="pages">Book Pages</label>
-        <input type="number" name="pages" id="pages">
+        <input type="number" name="pages" id="pages" />
         <label for="read"></label>
-        <input type="checkbox" name="read" id="read">
+        <input type="checkbox" name="read" id="read" />
         <button type="submit" id="form-submit">Submit</button>
-    </form>
-    <div id="container">
-        
-    </div>
-</body>
+      </form>
+      <div id="container" class="grid grid-cols-5 justify-items-center px-20 gap-4">
+        <div
+          class="book-card my-4 flex flex-col justify-between gap-2 rounded-md bg-gray-700 p-7 text-xl text-white shadow-md shadow-gray-800"
+        >
+          <div class="place-self-end" id="remove-button" role="button">
+            <span class="material-icons">cancel</span>
+          </div>
+          <div class="bookcard-row">Test</div>
+          <div class="bookcard-row">Tesr</div>
+          <div class="bookcard-row">Test</div>
+          <div class="read-indicator">
+            <button type="button" data-read="" id="read-indicator">
+              Unread
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
 </html>
