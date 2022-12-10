@@ -5,7 +5,7 @@ function Book(title, author, pages, read) {
     this.pages = pages
     this.read = read
     this.info = function() {
-        let readstring = read ? 'read' : 'not read'
+        let readstring = read ? 'Read' : 'Unread'
         return `${title} is a book by ${author} and is ${pages} long. I have ${readstring}`
     }
 }
@@ -41,6 +41,7 @@ function Controller() {
     }
     this.handleFormData = function(data) {
         data = new FormData(data)
+        console.log(data)
         return Object.fromEntries(data)
     }
 }
@@ -57,13 +58,20 @@ function Display() {
         rows[0].textContent = newBook.title
         rows[1].textContent = newBook.author
         rows[2].textContent = newBook.pages
-        let removeButton = bookCard.querySelectorAll('#remove-button')[0]
+        let removeButton = bookCard.querySelector('#remove-button')
+        removeButton.dataset.title = newBook.title
         console.log(removeButton)
         removeButton.addEventListener('click', e => {
-            console.log(e)
+            let title = e.target.parentElement.dataset.title
+            console.log(e.target.parentElement.dataset.title)
+            mainController.removeBook(title)
        })
-        this.container.appendChild(clone)
-        //TODO: READ / NOT READ DISPLAY    
+       let readButton = bookCard.querySelector("#read-indicator")
+       let bookIsRead = newBook.read ? true : false
+       let bookIsReadString = bookIsRead ? "Read" : "Unread"
+       readButton.textContent = bookIsReadString
+       console.log(bookIsRead)
+       this.container.appendChild(clone)
     }
     this.removeBook = function(title) {
         let bookCard = document.querySelector(`[data-title=${title}]`)
