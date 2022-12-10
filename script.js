@@ -16,10 +16,14 @@ function Library() {
         this.books.filter((book) => book.title !== title)
     }
     this.getBookInfo = function(title) {
-        return this.books.find(title)
+        return this.books.find(book => book.title === title)
     }
     this.alreadyInLibrary = function(newBook) {
-        return this.books.some((book) => book.title === newBook.title)
+        return this.books.some((book) => book.title !== newBook.title)
+    }
+    this.toggleRead = function(title) {
+        let book = this.getBookInfo(title)
+        book.read = !book.read
     }
 }
 function Controller() {
@@ -45,6 +49,10 @@ function Controller() {
         console.log(data)
         return Object.fromEntries(data)
     }
+    this.toggleRead = function(title) {
+        this.Library.toggleRead(title)
+        this.Display.updateRead(title)
+    }
 }
 let mainController = new Controller()
 
@@ -68,6 +76,12 @@ function Display() {
             mainController.removeBook(title)
        })
        let readButton = bookCard.querySelector("#read-indicator")
+       readButton.dataset.title = book.title
+       readButton.dataset.read = book.read
+       readButton.parentElement.addEventListener("click", (e) => {
+        console.log(e.target.dataset.title)
+            mainController.toggleRead(e.target.dataset.title)
+       })
        let bookIsReadString = book.read ? "Read" : "Unread"
        console.log(readButton)
        readButton.textContent = bookIsReadString
@@ -80,6 +94,19 @@ function Display() {
     this.updateBook= function(book) {
         this.removeBook(book.title)
         this.renderBook(book)
+    }
+    this.updateRead = function(title) {
+        let readButton = document.querySelector(`[data-title=${title}]`).querySelector('#read-indicator')
+        console.log(readButton)
+        let currentState = readButton.dataset.read
+        if (currentState === "true") {
+            readButton.textContent = "Unread"
+            readButton.dataset.read = "false"
+        } else {
+            readButton.textContent = "Read"
+            readButton.dataset.read = "true"
+        }
+        console.log(readButton.dataset.read)
     }
 }
 submitButton.addEventListener('click', (e) => {
